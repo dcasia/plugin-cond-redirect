@@ -72,7 +72,7 @@ func New(ctx context.Context, next http.Handler, config *Config) (http.Handler, 
 	}, nil
 }
 
-func (c ConditionalRedirect) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
+func (c *ConditionalRedirect) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
 	url := req.URL.String()
 	uri := req.URL.RequestURI()
 	for _, r := range c.rules {
