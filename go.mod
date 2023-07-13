@@ -1,4 +1,4 @@
-module github.com/dcasia/plugin_cond_redirect
+module github.com/dcasia/plugin-cond-redirect
 
 go 1.19
 
