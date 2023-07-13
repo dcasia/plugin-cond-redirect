@@ -1,0 +1,16 @@
+displayName: Conditional Redirect Plugin
+type: middleware
+iconPath: .assets/icon.png
+
+import: github.com/dcasia/plugin-cond-redirect
+
+summary: '[CondRedirect] Basic'
+
+testData:
+  rules:
+    - sourcePattern: /
+      destinationPattern: /foo
+      condition:
+        type: header
+        name: X-Foo
+        pattern: foo
