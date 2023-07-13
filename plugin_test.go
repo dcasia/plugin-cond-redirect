@@ -2,7 +2,7 @@ package plugin_cond_redirect_test
 
 import (
 	"context"
-	. "github.com/dcasia/plugin_cond_redirect/lib"
+	. "github.com/dcasia/plugin_cond_redirect"
 	"github.com/mitchellh/mapstructure"
 	"net/http"
 	"net/http/httptest"
