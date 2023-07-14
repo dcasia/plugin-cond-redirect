@@ -144,7 +144,7 @@ func prepare(t *testing.T, cfg *Config) (http.Handler, context.Context) {
 	ctx := context.Background()
 	next := http.HandlerFunc(func(rw http.ResponseWriter, req *http.Request) {})
 
-	handler, err := New(ctx, next, cfg)
+	handler, err := New(ctx, next, cfg, "cond-redirect")
 	if err != nil {
 		t.Fatal(err)
 	}

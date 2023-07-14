@@ -8,9 +8,7 @@ import (
 
 type RedirectRule struct {
 	WithHost           bool                 `mapstructure:"withHost,omitempty"`
-	Source             string               `mapstructure:"source,omitempty"`
 	SourcePattern      string               `mapstructure:"sourcePattern"`
-	Destination        string               `mapstructure:"destination,omitempty"`
 	DestinationPattern string               `mapstructure:"destinationPattern"`
 	Condition          RawRedirectCondition `mapstructure:"condition"`
 }
@@ -32,17 +30,19 @@ type Config struct {
 type ConditionalRedirect struct {
 	next       http.Handler
 	config     *Config
+	name       string
 	statusCode int
 	rules      []redirectRule
 }
 
 func CreateConfig() *Config {
 	return &Config{
-		Rules: make([]RedirectRule, 0),
+		StatusCode: 0,
+		Rules:      make([]RedirectRule, 0),
 	}
 }
 
-func New(ctx context.Context, next http.Handler, config *Config) (http.Handler, error) {
+func New(ctx context.Context, next http.Handler, config *Config, name string) (http.Handler, error) {
 	rules := make([]redirectRule, 0)
 	for _, r := range config.Rules {
 		refined, err := r.Condition.refine()
@@ -67,6 +67,7 @@ func New(ctx context.Context, next http.Handler, config *Config) (http.Handler, 
 	return &ConditionalRedirect{
 		next:       next,
 		config:     config,
+		name:       name,
 		statusCode: statusCode,
 		rules:      rules,
 	}, nil
@@ -81,8 +82,8 @@ func (c *ConditionalRedirect) ServeHTTP(rw http.ResponseWriter, req *http.Reques
 			src = url
 		}
 		if r.source.MatchString(src) && r.condition.check(req) {
-			rw.WriteHeader(c.statusCode)
 			rw.Header().Set("Location", r.source.ReplaceAllString(src, r.destination))
+			rw.WriteHeader(c.statusCode)
 			return
 		}
 	}

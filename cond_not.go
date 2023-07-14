@@ -10,7 +10,7 @@ type notRedirectCondition struct {
 	condition redirectCondition
 }
 
-func (c *NotRedirectCondition) build() (redirectCondition, error) {
+func (c NotRedirectCondition) build() (redirectCondition, error) {
 	refined, err := c.Condition.refine()
 	if err != nil {
 		return nil, err

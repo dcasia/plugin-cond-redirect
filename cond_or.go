@@ -10,7 +10,7 @@ type orRedirectCondition struct {
 	children []redirectCondition
 }
 
-func (c *OrRedirectCondition) build() (redirectCondition, error) {
+func (c OrRedirectCondition) build() (redirectCondition, error) {
 	children := make([]redirectCondition, 0)
 	for _, child := range c.Children {
 		refined, err := child.refine()

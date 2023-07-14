@@ -12,7 +12,7 @@ type andRedirectCondition struct {
 	children []redirectCondition
 }
 
-func (c *AndRedirectCondition) build() (redirectCondition, error) {
+func (c AndRedirectCondition) build() (redirectCondition, error) {
 	children := make([]redirectCondition, 0)
 	for _, child := range c.Children {
 		refined, err := child.refine()

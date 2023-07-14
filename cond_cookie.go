@@ -17,10 +17,10 @@ type cookieRedirectCondition struct {
 	pattern *regexp.Regexp
 }
 
-func (c *CookieRedirectCondition) build() (redirectCondition, error) {
+func (c CookieRedirectCondition) build() (redirectCondition, error) {
 	pattern := regexp.MustCompile(c.Pattern)
 	return cookieRedirectCondition{
-		CookieRedirectCondition: *c,
+		CookieRedirectCondition: c,
 		pattern:                 pattern,
 	}, nil
 }

@@ -16,10 +16,10 @@ type headerRedirectCondition struct {
 	pattern *regexp.Regexp
 }
 
-func (c *HeaderRedirectCondition) build() (redirectCondition, error) {
+func (c HeaderRedirectCondition) build() (redirectCondition, error) {
 	pattern := regexp.MustCompile(c.Pattern)
 	return headerRedirectCondition{
-		HeaderRedirectCondition: *c,
+		HeaderRedirectCondition: c,
 		pattern:                 pattern,
 	}, nil
 }
